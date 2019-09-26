@@ -1,21 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package compiladorasc_v01;
 
-/**
- *
- * @author niver
- */
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/* @author niver */
+
 public class CompiladorASC_v01 {
 
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        File file = new File("/Users/UsuarioInvitado/pro.asc");
+        try {
+            
+            fileProcessor process= new fileProcessor(file);
+            process.processBuffer();
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(CompiladorASC_v01.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.print("The file couldn't found");
+        }
+        
     }
     
 }
