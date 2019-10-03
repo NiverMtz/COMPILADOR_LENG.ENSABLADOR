@@ -9,6 +9,6 @@ package compiladorasc_v01;
  *
  * @author niver
  */
-public class Indexado {
+public class Relativo {
     
 }
