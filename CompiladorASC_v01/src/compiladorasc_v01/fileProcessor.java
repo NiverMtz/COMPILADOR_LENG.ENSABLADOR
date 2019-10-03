@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,6 +33,19 @@ public class fileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
             System.err.print("The file is damaged");
         }
     
+    }
+    
+    public LinkedList manipularLineapoorLinea(LinkedList l){
+        try {
+            String line;
+            while ((line = this.bufferFile.readLine()) != null) { 
+                l.add(line);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(fileProcessor.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.print("The file is damaged");
+        }
+        return l;
     }
     
 }
