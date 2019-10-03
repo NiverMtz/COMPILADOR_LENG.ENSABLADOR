@@ -12,7 +12,7 @@ public class CompiladorASC_v01 {
    
     public static void main(String[] args) {
         
-        File file = new File("/Users/UsuarioInvitado/pro.asc");
+        File file = new File("EXEMPLO.LST");
         try {
             
             fileProcessor process= new fileProcessor(file);
