@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex. *;
+import java.util.regex.*;
 /* @author niver */
 
 public class CompiladorASC_v01 {
@@ -19,7 +19,7 @@ public class CompiladorASC_v01 {
         LinkedList lnporln = new LinkedList();
 
         try {
-            fileProcessor process = new fileProcessor(file);
+            FileProcessor process = new FileProcessor(file);
             process.manipularLineapoorLinea(lnporln);
             
             for(Object e : lnporln){

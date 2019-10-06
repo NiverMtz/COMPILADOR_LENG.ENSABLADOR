@@ -12,11 +12,11 @@ import java.util.logging.Logger;
 
 /* @author Edward Hunter */
 
-public class fileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT, SO WE CAN PROCESSS OUR FILE, AND PROCESS IT ACORDING TO ITS FORM.
+public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT, SO WE CAN PROCESSS OUR FILE, AND PROCESS IT ACORDING TO ITS FORM.
     
     BufferedReader bufferFile;
             
-    public fileProcessor (File sourceCode) throws FileNotFoundException{ // CREATES THE OBJECT FOR FILE READING AND PROCESSING 
+    public FileProcessor (File sourceCode) throws FileNotFoundException{ // CREATES THE OBJECT FOR FILE READING AND PROCESSING 
         this.bufferFile = new BufferedReader(new FileReader(sourceCode));
     }
     
@@ -29,7 +29,7 @@ public class fileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
                 System.out.println(line);
             }
         } catch (IOException ex) {
-            Logger.getLogger(fileProcessor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FileProcessor.class.getName()).log(Level.SEVERE, null, ex);
             System.err.print("The file is damaged");
         }
     
@@ -42,7 +42,7 @@ public class fileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
                 l.add(line);
             }
         } catch (IOException ex) {
-            Logger.getLogger(fileProcessor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FileProcessor.class.getName()).log(Level.SEVERE, null, ex);
             System.err.print("The file is damaged");
         }
         return l;
