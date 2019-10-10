@@ -5,39 +5,77 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /* @author Edward Hunter */
-
 public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT, SO WE CAN PROCESSS OUR FILE, AND PROCESS IT ACORDING TO ITS FORM.
-    
+
     BufferedReader bufferFile;
-            
-    public FileProcessor (File sourceCode) throws FileNotFoundException{ // CREATES THE OBJECT FOR FILE READING AND PROCESSING 
-        this.bufferFile = new BufferedReader(new FileReader(sourceCode));
-    }
+    FileReader source;
     
-    //Este sólo lee el el archivo linea por linea
-    public void processBuffer(){
-        
+    public FileProcessor(File sourceCode) throws FileNotFoundException { // CREATES THE OBJECT FOR FILE READING AND PROCESSING 
+      this.source=new FileReader(sourceCode);
+      this.bufferFile = new BufferedReader(new FileReader(sourceCode));
+    }
+
+    public void processBuffer() {
+
         try {
             String line;
-            while ((line = this.bufferFile.readLine()) != null) { 
-                System.out.println(line);
+            try (PrintWriter writer = new PrintWriter("temp.asc", "UTF-8")) {
+                while ((line = this.bufferFile.readLine()) != null) {
+
+                    writer.println(line.toUpperCase());
+
+                }
+
             }
+            
+            this.bufferFile= new BufferedReader(this.source);
+            
+            while ((line = this.bufferFile.readLine()) != null) {
+                String s = line;
+                if (s.contains("EQU")) {
+                    String[] words = s.split("\\W+");
+                    String key = words[0];
+                    //String address = '$' + words[2];
+                    String address = words[2];
+                    System.out.println("REPLACING: " + key + " BY: " + address);
+                    modifyFile(key, address);
+
+                }
+            }
+            
         } catch (IOException ex) {
             Logger.getLogger(FileProcessor.class.getName()).log(Level.SEVERE, null, ex);
             System.err.print("The file is damaged");
         }
-    
+
     }
-    
-    //Valida el patrón de los mnemónicos con una regex
+
+    static void modifyFile(String key, String address) throws FileNotFoundException, IOException {  // THIS METHOD REPLACE ALL THE KEYWORDS BY THE ADDRESS OF EACHV VARIABLE 
+
+        // Path path = Paths.get("/Users/UsuarioInvitado/pro.asc");
+        Path path = Paths.get("temp.asc");
+        Charset charset = StandardCharsets.UTF_8;
+
+        String content = new String(Files.readAllBytes(path), charset);
+        content = content.replaceAll(key, "\\$" + address);
+        Files.write(path, content.getBytes(charset));
+
+    }
+
+}
+//Valida el patrón de los mnemónicos con una regex
     public static boolean mnemoPattern(String line) {
         Pattern pat = Pattern.compile("[a-z]{1,5}.*");//Se propone el patrón a buscar en las lineas
         Matcher mat = pat.matcher(line);//valida que ese patrón esté ne la cadena
