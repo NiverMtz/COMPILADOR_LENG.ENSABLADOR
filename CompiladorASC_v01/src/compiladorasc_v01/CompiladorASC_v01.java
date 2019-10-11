@@ -2,7 +2,6 @@ package compiladorasc_v01;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.*;
@@ -32,19 +31,51 @@ public class CompiladorASC_v01 {
             System.err.print("The file couldn't found");
         }*/
         
-        File file = new File("S_I_MC68.txt");
+        File file_1 = new File("mnemos_opCode.txt");
+        File file_2 = new File("mnemos_bytes.txt");
         
         try {
-            FileProcessor process = new FileProcessor(file);
+            FileProcessor process = new FileProcessor(file_1);
             
             /*Se van probando comandos uno a uno para ver que se valide que se encuentran dentro del archivo,
             con esto ya tenemos la parte del error 004: Mnemonico inexistente*/
-            System.out.println("¿Está 'aba'? R: "+process.processBuffer_containsMnemo("aba",file));
-            System.out.println("¿Está 'jmp'? R: "+process.processBuffer_containsMnemo("jmp",file));
-            System.out.println("¿Está 'ldaa'? R: "+process.processBuffer_containsMnemo("ldaa",file));
-            System.out.println("¿Está 'sbca'? R: "+process.processBuffer_containsMnemo("sbca",file));
-            System.out.println("¿Está 'xgdy'? R: "+process.processBuffer_containsMnemo("xgdy",file));
-
+            System.out.println("¿Está 'aba'? R: "+process.processBuffer_containsMnemo("aba",file_1));
+            System.out.println("¿Está 'jmp'? R: "+process.processBuffer_containsMnemo("jmp",file_1));
+            System.out.println("¿Está 'ldaa'? R: "+process.processBuffer_containsMnemo("ldaa",file_1));
+            System.out.println("¿Está 'sbca'? R: "+process.processBuffer_containsMnemo("sbca",file_1));
+            System.out.println("¿Está 'xgdy'? R: "+process.processBuffer_containsMnemo("xgdy",file_1));
+            
+            System.out.println("¿Está 'aba'? R: "+process.processBuffer_containsMnemo("aba",file_2));
+            System.out.println("¿Está 'jmp'? R: "+process.processBuffer_containsMnemo("jmp",file_2));
+            System.out.println("¿Está 'ldaa'? R: "+process.processBuffer_containsMnemo("ldaa",file_2));
+            System.out.println("¿Está 'sbca'? R: "+process.processBuffer_containsMnemo("sbca",file_2));
+            System.out.println("¿Está 'xgdy'? R: "+process.processBuffer_containsMnemo("xgdy",file_2));
+            
+            /*
+                Convierte la cadena en un array que va separando las palabras mediante el símbolo "|",
+                luego te regresa la palabra que se encuentra en la posición del índice especificado
+            */
+            String aux = FileProcessor.convertLineToArray("tba|-|-|-|-|-|16|-", 6);
+            System.out.println("opCode: "+aux);
+            
+            /*
+            
+                Son los índices a los que correspone cada modo de ireccionamiento, una vez que se convierte
+                la cadena del archivo 'file_1', que contiene todos los opCodes de cada modo de direccionamiento
+                para cada mnemónico. El nemónico sirve como una llave para acceder a lo demás
+            
+                mnemo (Key)    = 0
+                opCode (IMM)   = 1
+                opCode (DIR)   = 2
+                opCode (IND,X) = 3
+                opCode (IND,Y) = 4
+                opCode (EXT)   = 5
+                opCode (INH)   = 6
+                opCode (REL)   = 7 
+            */
+            System.out.println("opCode: " + process.processBuffer_opCode("ldab",file_1,4));
+            
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FileProcessor.class.getName()).log(Level.SEVERE, null, ex);
             System.err.print("The file couldn't found");
@@ -55,5 +86,4 @@ public class CompiladorASC_v01 {
         return linea.matches("^[ ]{1,}[A-Za-z]{1,5}[ ]{1,}\\#\\$([A|B|C|D|E|F]|[0-9]){1,4}$");
         //return linea.matches("[^#]*\\#[^#]*\\$([A|B|C|D|E|F]|[0-9]){1,4}");
     }*/
-
 }

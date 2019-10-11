@@ -13,8 +13,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /* @author Edward Hunter */
 public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT, SO WE CAN PROCESSS OUR FILE, AND PROCESS IT ACORDING TO ITS FORM.
@@ -73,9 +76,8 @@ public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
         Files.write(path, content.getBytes(charset));
 
     }
-
-}
-//Valida el patrón de los mnemónicos con una regex
+    
+    //Valida el patrón de los mnemónicos con una regex
     public static boolean mnemoPattern(String line) {
         Pattern pat = Pattern.compile("[a-z]{1,5}.*");//Se propone el patrón a buscar en las lineas
         Matcher mat = pat.matcher(line);//valida que ese patrón esté ne la cadena
@@ -97,6 +99,55 @@ public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
         }
     return p;//retorno de bandera
     }
+    
+            /*
+                Son los índices a los que correspone cada modo de ireccionamiento, una vez que se convierte
+                la cadena del archivo 'file_1', que contiene todos los opCodes de cada modo de direccionamiento
+                para cada mnemónico. El nemónico sirve como una llave para acceder a lo demás
+            
+                mnemo (Key)    = 0
+                opCode (IMM)   = 1
+                opCode (DIR)   = 2
+                opCode (IND,X) = 3
+                opCode (IND,Y) = 4
+                opCode (EXT)   = 5
+                opCode (INH)   = 6
+                opCode (REL)   = 7 
+            */
+    
+    
+    /*Convierte en un array de String cada linea para poder acceder a cada índice como si fuera un diccionario y
+    obtener el Opcode y los Bytes permitidos para cada modo por mnemónico*/
+    public static String convertLineToArray (String line, int index_mod) {
+            String[] aux = line.split("[|]");//Separa la linea cada que encuentra el símbolo "|" y los que está antes y después lo convierte en una posición del arreglo.
+    return aux[index_mod];//regresa la palabra en la posición especificada, tal que podemos acceder como si fuera un diccionario.
+    }
+    
+    /*
+        Este método valida que al pasarle el nemónico que se está buscando, el archivo y un índice, tal que este
+        último se refiere al índice del arreglo en que se convierte cada cadena que vamos leyendo del archivo que
+        contiene los mnemónicos y sus respectivos opCode's por cada modo de direccionamiento
+    */
+    public String processBuffer_opCode(String mnemo, File fileMnemos, int index)  throws FileNotFoundException {
+        String aux = null;//variable auxiliar
+        try {
+            String line;
+            while ((line = this.bufferFile.readLine()) != null) {
+                if(mnemo.equals(convertLineToArray(line,0))){//valida que la llave o mnemónico sea igual al que se solicita en el argumento del método
+                    aux = convertLineToArray(line,index);//Si es igual, guarda la palabra que correponda al modo de direccionamiento, según su índice en el arreglo.
+                } 
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FileProcessor.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.print("The file is damaged");
+        }
+    return aux;//retorno de variable auxiliar con la palabra de nuestro diccionario de mnemónicos y sus códigos.
+    }
+    
+    
+    /*public String processBuffer_Bytes(String mnemo, File fileMnemos) {
+        
+    }*/
     
     //Este puede quedar inutlizado, pero valida se trata de convertir cada linea del archivo a un indice dentro de una lista
     public LinkedList manipularLineapoorLinea(LinkedList l){
