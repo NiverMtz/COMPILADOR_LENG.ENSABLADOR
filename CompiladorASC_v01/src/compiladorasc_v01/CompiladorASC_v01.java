@@ -22,7 +22,8 @@ public class CompiladorASC_v01 {
         String input = "       LDAA  ORDEN             * NEW LINE ";
         System.out.println("Es IMM?: ");
         System.out.println(input);
-        ModosDireccionamiento.devolverImm(input);
+        System.out.println(ModosDireccionamiento.devolverImm(input));
+        
         /*LinkedList lnporln = new LinkedList();
         try {
             FileProcessor process = new FileProcessor(file);
@@ -44,9 +45,9 @@ public class CompiladorASC_v01 {
         try {
             FileProcessor process = new FileProcessor(file);
             LinkedList aux = process.manipularLineapoorLinea(lnporln);
-            System.out.println("Que es?: "+ aux.get(60));
+            System.out.println("Que es?: "+ aux.get(60).toString());
             int t = ModosDireccionamiento.devolverImm(aux.get(60).toString());
-            System.out.println("Q s?: "+t);
+            System.out.println("Q s?: "+ t);
             /*Se van probando comandos uno a uno para ver que se valide que se encuentran dentro del archivo,
             con esto ya tenemos la parte del error 004: Mnemonico inexistente*/
             /*System.out.println("¿Está 'aba'? R: "+process.processBuffer_containsMnemo("aba",file_1));
