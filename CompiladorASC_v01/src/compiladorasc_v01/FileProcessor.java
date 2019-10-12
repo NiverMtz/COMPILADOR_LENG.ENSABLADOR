@@ -43,7 +43,7 @@ public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
 
             }
             
-            this.bufferFile= new BufferedReader(this.source);
+            this.bufferFile = new BufferedReader(this.source);
             
             while ((line = this.bufferFile.readLine()) != null) {
                 String s = line;
@@ -92,7 +92,7 @@ public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
             String line;
             while ((line = bufferFile_Mnemos.readLine()) != null) { 
                 p = true;//Si encuentra el nemonico va a modificar la bandera
-            }
+            }   
         } catch (IOException ex) {
             Logger.getLogger(FileProcessor.class.getName()).log(Level.SEVERE, null, ex);
             System.err.print("The file is damaged");
@@ -150,10 +150,12 @@ public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
     }*/
     
     //Este puede quedar inutlizado, pero valida se trata de convertir cada linea del archivo a un indice dentro de una lista
-    public LinkedList manipularLineapoorLinea(LinkedList l){
+    public LinkedList manipularLineapoorLinea(LinkedList l) throws FileNotFoundException{
+        File fileProcess= new File("EXEMPLO.ASC");
+        BufferedReader bufferFile_Mnemos = new BufferedReader(new FileReader(fileProcess));
         try {
             String line;
-            while ((line = this.bufferFile.readLine()) != null) { 
+            while ((line = bufferFile_Mnemos.readLine()) != null) { 
                 l.add(line);
             }
         } catch (IOException ex) {

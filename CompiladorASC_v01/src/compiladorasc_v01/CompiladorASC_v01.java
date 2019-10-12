@@ -1,7 +1,10 @@
 package compiladorasc_v01;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.*;
@@ -11,12 +14,16 @@ public class CompiladorASC_v01 {
 
     public static void main(String[] args) {
 
-        /*File file = new File("EXEMPLO.ASC");
-        int i = 1;
-
-        //String input = " LDAA #$25";
+        File file = new File("EXEMPLO.ASC");
         LinkedList lnporln = new LinkedList();
-
+        int i = 1;
+        System.out.println("luklj");
+        
+        String input = "       LDAA  ORDEN             * NEW LINE ";
+        System.out.println("Es IMM?: ");
+        System.out.println(input);
+        ModosDireccionamiento.devolverImm(input);
+        /*LinkedList lnporln = new LinkedList();
         try {
             FileProcessor process = new FileProcessor(file);
             process.manipularLineapoorLinea(lnporln);
@@ -31,15 +38,18 @@ public class CompiladorASC_v01 {
             System.err.print("The file couldn't found");
         }*/
         
-        File file_1 = new File("mnemos_opCode.txt");
-        File file_2 = new File("mnemos_bytes.txt");
+        //File file_1 = new File("mnemos_opCode.txt");
+        //File file_2 = new File("mnemos_bytes.txt");
         
         try {
-            FileProcessor process = new FileProcessor(file_1);
-            
+            FileProcessor process = new FileProcessor(file);
+            LinkedList aux = process.manipularLineapoorLinea(lnporln);
+            System.out.println("Que es?: "+ aux.get(60));
+            int t = ModosDireccionamiento.devolverImm(aux.get(60).toString());
+            System.out.println("Q s?: "+t);
             /*Se van probando comandos uno a uno para ver que se valide que se encuentran dentro del archivo,
             con esto ya tenemos la parte del error 004: Mnemonico inexistente*/
-            System.out.println("¿Está 'aba'? R: "+process.processBuffer_containsMnemo("aba",file_1));
+            /*System.out.println("¿Está 'aba'? R: "+process.processBuffer_containsMnemo("aba",file_1));
             System.out.println("¿Está 'jmp'? R: "+process.processBuffer_containsMnemo("jmp",file_1));
             System.out.println("¿Está 'ldaa'? R: "+process.processBuffer_containsMnemo("ldaa",file_1));
             System.out.println("¿Está 'sbca'? R: "+process.processBuffer_containsMnemo("sbca",file_1));
@@ -49,14 +59,14 @@ public class CompiladorASC_v01 {
             System.out.println("¿Está 'jmp'? R: "+process.processBuffer_containsMnemo("jmp",file_2));
             System.out.println("¿Está 'ldaa'? R: "+process.processBuffer_containsMnemo("ldaa",file_2));
             System.out.println("¿Está 'sbca'? R: "+process.processBuffer_containsMnemo("sbca",file_2));
-            System.out.println("¿Está 'xgdy'? R: "+process.processBuffer_containsMnemo("xgdy",file_2));
+            System.out.println("¿Está 'xgdy'? R: "+process.processBuffer_containsMnemo("xgdy",file_2));*/
             
             /*
                 Convierte la cadena en un array que va separando las palabras mediante el símbolo "|",
                 luego te regresa la palabra que se encuentra en la posición del índice especificado
             */
-            String aux = FileProcessor.convertLineToArray("tba|-|-|-|-|-|16|-", 6);
-            System.out.println("opCode: "+aux);
+            //String aux = FileProcessor.convertLineToArray("tba|-|-|-|-|-|16|-", 2);
+            //System.out.println("opCode: "+aux);
             
             /*
             
@@ -73,7 +83,15 @@ public class CompiladorASC_v01 {
                 opCode (INH)   = 6
                 opCode (REL)   = 7 
             */
-            System.out.println("opCode: " + process.processBuffer_opCode("ldab",file_1,4));
+            //System.out.println("opCode: " + process.processBuffer_opCode("ldab",file_1,4));
+            for(Object e : lnporln){
+                System.out.println(i++);
+                String tempS=e.toString();
+                System.out.println(tempS);
+                int result=ModosDireccionamiento.devolverImm(tempS);
+                System.out.println(result);
+            }
+            
             
             
         } catch (FileNotFoundException ex) {
