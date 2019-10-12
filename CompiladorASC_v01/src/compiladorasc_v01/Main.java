@@ -136,7 +136,7 @@ public class Main {
                     if (lineaFuenteArchivo.matches("^ {1,}"+regex+" {1,}$") == true) { //Puede haber espacio(s) que haya escrito por accidente al final
                         System.out.println(i+lineaFuenteArchivo);//LISTO
                     }
-                    if (lineaFuenteArchivo.matches("^ {1,}"+regex+"\\*$") == true) { //Puede haber solamente un * despues de la instrucción
+                    if (lineaFuenteArchivo.matches("^ {1,}"+regex+"\\*") == true) { //Puede haber solamente un * despues de la instrucción
                         System.out.println(i+lineaFuenteArchivo);//ERROR, no lo reconoce
                     }
                     //http://tutorials.jenkov.com/java-regex/index.html#escaping-characters
