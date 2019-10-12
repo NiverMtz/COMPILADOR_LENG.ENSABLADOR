@@ -8,8 +8,22 @@ package compiladorasc_v01;
 
 /**
  *
- * @author rocoelwuero
+ * @author RojasCastilloOscar-RocoElWuero
  */
 public class ModosDireccionamiento {
-
+    public static int devolverImm(String lineaArchivo) {
+        
+    }
+    public static int devolverDir(String lineaArchivo) {
+    }
+    public static int devolverIndX(String lineaArchivo) {
+    }
+    public static int devolverIndY(String lineaArchivo) {
+    }
+    public static int devolverExt(String lineaArchivo) {
+    }
+    public static int devolverInh(String lineaArchivo) {
+    }
+    public static int devolverRel(String lineaArchivo) {
+    }
 }
