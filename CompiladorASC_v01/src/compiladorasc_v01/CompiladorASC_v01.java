@@ -89,7 +89,7 @@ public class CompiladorASC_v01 {
                 System.out.println(i++);
                 String tempS=e.toString();
                 System.out.println(tempS);
-                int result=ModosDireccionamiento.devolverInh(tempS);
+                int result=ModosDireccionamiento.devolverImm(tempS);
                 System.out.println(result);
                 
                 

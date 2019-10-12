@@ -15,9 +15,11 @@ import java.util.regex.Pattern;
  */
 public class ModosDireccionamiento {
     public static int devolverImm(String lineaArchivo) {
-        Pattern pat = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}[ ]{1,}\\#\\$[A-F|a-f|0-9]{1,4}[ ]{0,}\\*[ ]{0,}[A-Z|a-z|0-9| ]*[ ]{0,}$");
-        Matcher mat = pat.matcher(lineaArchivo);
-        if(mat.matches()) {
+        Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}[ ]{1,}\\#\\$[A-F|a-f|0-9]{1,4}[ ]{0,}\\*[ ]{0,}[A-Z|a-z|0-9| ]*[ ]{0,}$");
+        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}[ ]{1,}\\#\\$[A-F|a-f|0-9]{1,4}[ ]{0,}$");
+        Matcher mat_1 = pat_1.matcher(lineaArchivo);
+        Matcher mat_2 = pat_2.matcher(lineaArchivo);
+        if(mat_2.matches() || mat_1.matches()) {
             return 1;
         }
     return -1;
@@ -62,7 +64,7 @@ public class ModosDireccionamiento {
         Pattern pat = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}[ |[\\*[A-Z|a-z|0-9||\\!|\"|\\#|\\$|\\%|\\&|\\/|\\(|\\)|\\=|\\?|\\¡|\\°|\\¨|\\´|\\+|\\*|\\{|\\[|\\}|\\]|\\,|\\;|\\.|\\:|\\-|\\_|\\ ]{0,}]]{0,}$");
         Matcher mat = pat.matcher(lineaArchivo);
         if(mat.matches()) {
-            return 1;
+            return 6;
         }
     return -1;
     }
