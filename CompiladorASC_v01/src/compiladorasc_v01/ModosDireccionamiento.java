@@ -59,7 +59,7 @@ public class ModosDireccionamiento {
         if (lineaFuenteArchivo.matches("^ {1,}"+regex+"\\ {1,}\\*[A-Z|a-z|0-9||\\!|\"|\\#|\\$|\\%|\\&|\\/|\\(|\\)|\\=|\\?|\\¡|\\°|\\¨|\\´|\\+|\\*|\\{|\\[|\\}|\\]|\\,|\\;|\\.|\\:|\\-|\\_|\\ ]{1,}") == true) {
             System.out.println(i+lineaFuenteArchivo); //LISTO, ya reconoce el espacio
         }*/
-        Pattern pat = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}[ |(\\*[|A-Z|a-z|0-9||\\!|\"|\\#|\\$|\\%|\\&|\\/|\\(|\\)|\\=|\\?|\\¡|\\°|\\¨|\\´|\\+|\\*|\\{|\\[|\\}|\\]|\\,|\\;|\\.|\\:|\\-|\\_|\\ ]{0,})]{0,}$");
+        Pattern pat = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}[ |[\\*(|A-Z|a-z|0-9||\\!|\"|\\#|\\$|\\%|\\&|\\/|\\(|\\)|\\=|\\?|\\¡|\\°|\\¨|\\´|\\+|\\*|\\{|\\[|\\}|\\]|\\,|\\;|\\.|\\:|\\-|\\_|\\ ){0,}]]{0,}$");
         Matcher mat = pat.matcher(lineaArchivo);
         if(mat.matches()) {
             return 6;
