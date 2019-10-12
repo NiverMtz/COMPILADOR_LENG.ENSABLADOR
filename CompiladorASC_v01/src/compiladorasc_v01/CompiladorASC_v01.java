@@ -17,7 +17,7 @@ public class CompiladorASC_v01 {
         File file = new File("temp.asc");
         LinkedList lnporln = new LinkedList();
         int i = 1;
-        
+        //fghjgfghj
         /*String input = "       LDAA  ORDEN             * NEW LINE ";
         System.out.println("Es IMM?: ");
         System.out.println(input);
