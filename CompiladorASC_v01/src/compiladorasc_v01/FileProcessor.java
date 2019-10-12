@@ -74,6 +74,7 @@ public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
         String content = new String(Files.readAllBytes(path), charset);
         content = content.replaceAll(key, "\\$" + address);
         Files.write(path, content.getBytes(charset));
+        System.out.println("Done");
 
     }
     
@@ -151,7 +152,7 @@ public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
     
     //Este puede quedar inutlizado, pero valida se trata de convertir cada linea del archivo a un indice dentro de una lista
     public LinkedList manipularLineapoorLinea(LinkedList l) throws FileNotFoundException{
-        File fileProcess= new File("EXEMPLO.ASC");
+        File fileProcess= new File("temp.ASC");
         BufferedReader bufferFile_Mnemos = new BufferedReader(new FileReader(fileProcess));
         try {
             String line;

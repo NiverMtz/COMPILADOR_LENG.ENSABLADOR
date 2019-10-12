@@ -14,18 +14,17 @@ public class CompiladorASC_v01 {
 
     public static void main(String[] args) {
 
-        File file = new File("EXEMPLO.ASC");
+        File file = new File("temp.asc");
         LinkedList lnporln = new LinkedList();
         int i = 1;
-        System.out.println("luklj");
         
-        String input = "       LDAA  ORDEN             * NEW LINE ";
+        /*String input = "       LDAA  ORDEN             * NEW LINE ";
         System.out.println("Es IMM?: ");
         System.out.println(input);
-        System.out.println(ModosDireccionamiento.devolverImm(input));
+        System.out.println(ModosDireccionamiento.devolverImm(input));*/
         
-        /*LinkedList lnporln = new LinkedList();
-        try {
+        //LinkedList lnporln = new LinkedList();
+        /*try {
             FileProcessor process = new FileProcessor(file);
             process.manipularLineapoorLinea(lnporln);
             
@@ -44,10 +43,10 @@ public class CompiladorASC_v01 {
         
         try {
             FileProcessor process = new FileProcessor(file);
-            LinkedList aux = process.manipularLineapoorLinea(lnporln);
-            System.out.println("Que es?: "+ aux.get(60).toString());
-            int t = ModosDireccionamiento.devolverImm(aux.get(60).toString());
-            System.out.println("Q s?: "+ t);
+            //LinkedList aux = process.manipularLineapoorLinea(lnporln);
+            //System.out.println("Que es?: "+ aux.get(60).toString());
+            //int t = ModosDireccionamiento.devolverImm(aux.get(60).toString());
+            //System.out.println("Q s?: "+ t);
             /*Se van probando comandos uno a uno para ver que se valide que se encuentran dentro del archivo,
             con esto ya tenemos la parte del error 004: Mnemonico inexistente*/
             /*System.out.println("¿Está 'aba'? R: "+process.processBuffer_containsMnemo("aba",file_1));
@@ -85,12 +84,20 @@ public class CompiladorASC_v01 {
                 opCode (REL)   = 7 
             */
             //System.out.println("opCode: " + process.processBuffer_opCode("ldab",file_1,4));
+            process.manipularLineapoorLinea(lnporln);
             for(Object e : lnporln){
                 System.out.println(i++);
                 String tempS=e.toString();
                 System.out.println(tempS);
-                int result=ModosDireccionamiento.devolverImm(tempS);
+                int result=ModosDireccionamiento.devolverInh(tempS);
                 System.out.println(result);
+                
+                
+                //System.out.println("-------------------");
+                
+                //process.processBuffer();
+                
+                
             }
             
             

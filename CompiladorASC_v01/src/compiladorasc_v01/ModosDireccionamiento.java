@@ -62,7 +62,7 @@ public class ModosDireccionamiento {
         Pattern pat = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}[ |(\\*[|A-Z|a-z|0-9||\\!|\"|\\#|\\$|\\%|\\&|\\/|\\(|\\)|\\=|\\?|\\¡|\\°|\\¨|\\´|\\+|\\*|\\{|\\[|\\}|\\]|\\,|\\;|\\.|\\:|\\-|\\_|\\ ]{0,})]{0,}$");
         Matcher mat = pat.matcher(lineaArchivo);
         if(mat.matches()) {
-            return 1;
+            return 6;
         }
     return -1;
     }
