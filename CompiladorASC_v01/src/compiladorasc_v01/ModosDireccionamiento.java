@@ -28,29 +28,21 @@ public class ModosDireccionamiento {
     return -1; 
     }
     public static int devolverIndX(String lineaArchivo) {
-        Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x]$");
+        Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x] {0,}$");
         Matcher mat_1 = pat_1.matcher(lineaArchivo);
-        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x] {1,}$");
+        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x] {0,}\\*.{1,}$");
         Matcher mat_2 = pat_2.matcher(lineaArchivo);
-        Pattern pat_3 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x] {1,}\\*.{1,}$");
-        Matcher mat_3 = pat_3.matcher(lineaArchivo);
-        Pattern pat_4 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x]\\*.{1,}$");
-        Matcher mat_4 = pat_4.matcher(lineaArchivo);
-        if(mat_1.matches() || mat_2.matches() || mat_3.matches() || mat_4.matches()) {
+        if(mat_1.matches() || mat_2.matches()) {
             return 3;
         }
     return -1;
     }
     public static int devolverIndY(String lineaArchivo) {
-        Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[Y|y]$");
+        Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x] {0,}$");
         Matcher mat_1 = pat_1.matcher(lineaArchivo);
-        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[Y|y] {1,}$");
+        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x] {0,}\\*.{1,}$");
         Matcher mat_2 = pat_2.matcher(lineaArchivo);
-        Pattern pat_3 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[Y|y] {1,}\\*.{1,}$");
-        Matcher mat_3 = pat_3.matcher(lineaArchivo);
-        Pattern pat_4 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[Y|y]\\*.{1,}$");
-        Matcher mat_4 = pat_4.matcher(lineaArchivo);
-        if(mat_1.matches() || mat_2.matches() || mat_3.matches() || mat_4.matches()) {
+        if(mat_1.matches() || mat_2.matches()) {
             return 4;
         }
     return -1;
@@ -83,15 +75,11 @@ public class ModosDireccionamiento {
         if (lineaFuenteArchivo.matches("^ {1,}"+regex+"\\ {1,}\\*[A-Z|a-z|0-9||\\!|\"|\\#|\\$|\\%|\\&|\\/|\\(|\\)|\\=|\\?|\\¡|\\°|\\¨|\\´|\\+|\\*|\\{|\\[|\\}|\\]|\\,|\\;|\\.|\\:|\\-|\\_|\\ ]{1,}") == true) {
             System.out.println(i+lineaFuenteArchivo); //LISTO, ya reconoce el espacio
         }*/
-        Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}$");
+        Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {0,}$");
         Matcher mat_1 = pat_1.matcher(lineaArchivo);
-        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}$");
+        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {0,}\\*.{1,}$");
         Matcher mat_2 = pat_2.matcher(lineaArchivo);
-        Pattern pat_3 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\*.{1,}$");
-        Matcher mat_3 = pat_3.matcher(lineaArchivo);
-        Pattern pat_4 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}\\*.{1,}$");
-        Matcher mat_4 = pat_4.matcher(lineaArchivo);
-        if(mat_1.matches() || mat_2.matches() || mat_3.matches() || mat_4.matches()) {
+        if(mat_1.matches() || mat_2.matches()) {
             return 6;
         }
     return -1;
