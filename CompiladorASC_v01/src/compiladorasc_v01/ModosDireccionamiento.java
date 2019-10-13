@@ -101,10 +101,16 @@ public class ModosDireccionamiento {
         Matcher mat_1 = pat_1.matcher(lineaArchivo);
         Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}"+comentario+"$");
         Matcher mat_2 = pat_2.matcher(lineaArchivo);
+        Pattern pat_3 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {0,}[$][A-Z|0-9]{1,4}[ ]{0,}$");
+        Pattern pat_4 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {0,}[$][A-Z|0-9]{1,4}[ ]{0,}"+comentario+"$");
+        Matcher mat_3 = pat_3.matcher(lineaArchivo);
+        Matcher mat_4 = pat_4.matcher(lineaArchivo);
         if(mat_1.matches() || mat_2.matches()) {
-            return 6;
+            return 6;//Todo en orden
+        }else if(mat_3.matches() || mat_4.matches()){
+            return 600;// Error: 006. Instrucción no lleva operandos
         }
-    return -1;
+    return -1;//El usuario está pendejo "No sirves para nada"
     }
     public static int devolverRel(String lineaArchivo) {
         Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Z|a-z]{1,5}[ ]{1,}[A-Z|a-z|0-9]{1,}[ ]{0,}$");
