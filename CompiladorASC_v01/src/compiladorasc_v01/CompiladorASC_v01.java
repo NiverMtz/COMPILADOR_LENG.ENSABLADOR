@@ -87,9 +87,9 @@ public class CompiladorASC_v01 {
             process.manipularLineapoorLinea(lnporln);
             for(Object e : lnporln){
                 System.out.println(i++);
-                String tempS=e.toString();
+                String tempS = e.toString();
                 System.out.println(tempS);
-                int result=ModosDireccionamiento.devolverIndY(tempS);
+                int result = ModosDireccionamiento.devolverRel(tempS);
                 System.out.println(result);
                 
                 

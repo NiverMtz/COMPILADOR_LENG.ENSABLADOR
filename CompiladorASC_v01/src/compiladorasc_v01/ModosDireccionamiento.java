@@ -97,6 +97,13 @@ public class ModosDireccionamiento {
     return -1;
     }
     public static int devolverRel(String lineaArchivo) {
+        Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Z|a-z]{1,5}[ ]{1,}[A-Z|a-z|0-9]{1,}[ ]{0,}$");
+        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Z|a-z]{1,5}[ ]{1,}[A-Z|a-z|0-9]{1,}[ ]{0,}[*][.]{1,}$");
+        Matcher mat_1 = pat_1.matcher(lineaArchivo);
+        Matcher mat_2 = pat_2.matcher(lineaArchivo);
+        if(mat_1.matches() || mat_2.matches()){
+            return 7;
+        }
     return -1;
     }
 }
