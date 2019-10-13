@@ -14,8 +14,8 @@ public class CompiladorASC_v01 {
 
     public static void main(String[] args) {
 
-        File file = new File("temp.asc");
-        LinkedList lnporln = new LinkedList();
+        File file = new File("mnemos_opCode.txt");
+        //LinkedList lnporln = new LinkedList();
         int i = 1;
         //fghjgfghj
         /*String input = "       LDAA  ORDEN             * NEW LINE ";
@@ -84,13 +84,17 @@ public class CompiladorASC_v01 {
                 opCode (REL)   = 7 
             */
             //System.out.println("opCode: " + process.processBuffer_opCode("ldab",file_1,4));
-            process.manipularLineapoorLinea(lnporln);
-            for(Object e : lnporln){
+            //process.manipularLineapoorLinea(lnporln);
+            /*(Object e : lnporln){
                 System.out.println(i++);
                 String tempS = e.toString();
                 System.out.println(tempS);
                 int result = ModosDireccionamiento.devolverInh(tempS);
-                System.out.println(result);
+                System.out.println(result);*/
+                
+            
+            Boolean aux = FileProcessor.mnemoPattern("asdasd");
+            System.out.println(aux);
                 
                 
                 //System.out.println("-------------------");
@@ -98,7 +102,7 @@ public class CompiladorASC_v01 {
                 //process.processBuffer();
                 
                 
-            }
+            //}
             
             
             

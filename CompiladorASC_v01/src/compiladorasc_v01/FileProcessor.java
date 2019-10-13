@@ -80,25 +80,28 @@ public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
     
     //Valida el patrón de los mnemónicos con una regex
     public static boolean mnemoPattern(String line) {
-        Pattern pat = Pattern.compile("[a-z]{1,5}.*");//Se propone el patrón a buscar en las lineas
+        Pattern pat = Pattern.compile("[A-Za-z]{1,5}.*");//Se propone el patrón a buscar en las lineas
         Matcher mat = pat.matcher(line);//valida que ese patrón esté ne la cadena
         return mat.matches();//regresa un booleano si la encontró ese patrón
     }
     
     //Valida que dentro de el archivo fileMnemos exista el nemónico
-    public boolean processBuffer_containsMnemo(String mnemo, File fileMnemos) throws FileNotFoundException {
+    public int processBuffer_containsMnemo(String mnemo, File fileMnemos) throws FileNotFoundException {
         BufferedReader bufferFile_Mnemos = new BufferedReader(new FileReader(fileMnemos));//Se crea una valiable local para el archivo porque sino marcaba error
         boolean p = false;//bandera
         try {
             String line;
             while ((line = bufferFile_Mnemos.readLine()) != null) {
-                p = true;//Si encuentra el nemonico va a modificar la bandera
+                p = FileProcessor.mnemoPattern(mnemo);
+                if (p) {
+                    return 460;
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(FileProcessor.class.getName()).log(Level.SEVERE, null, ex);
             System.err.print("The file is damaged");
         }
-        return p;//retorno de bandera
+        return 400;
     }
     
             /*
