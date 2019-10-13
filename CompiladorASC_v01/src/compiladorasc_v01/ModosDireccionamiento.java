@@ -69,9 +69,9 @@ public class ModosDireccionamiento {
     return -1;
     }
     public static int devolverIndY(String lineaArchivo) {
-        Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x] {0,}$");
+        Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[Y|y] {0,}$");
         Matcher mat_1 = pat_1.matcher(lineaArchivo);
-        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x]"+comentario+"$");
+        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[Y|y]"+comentario+"$");
         Matcher mat_2 = pat_2.matcher(lineaArchivo);
         if(mat_1.matches() || mat_2.matches()) {
             return 4;
