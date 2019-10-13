@@ -14,9 +14,23 @@ import java.util.regex.Pattern;
  * @author RojasCastilloOscar-RocoElWuero
  */
 public class ModosDireccionamiento {
-    
+    //http://tutorials.jenkov.com/java-regex/index.html#escaping-characters
+    static String comentario="\\ {0,}\\*.{1,}";
+    public static int devolverComent(String lineaArchivo) {
+        Pattern pat_1 = Pattern.compile(comentario);
+        Matcher mat_1 = pat_1.matcher(lineaArchivo);
+        if(mat_1.matches()) {
+            return 0;
+        }
+    return -1;
+    }
+    /*
+        2) Inmediata (IMM) -------------- # y operando 8 o 16 bits
+            LDAA #$25
+            LDX  #$1789
+    */
     public static int devolverImm(String lineaArchivo) {
-        Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}[ ]{1,}\\#\\$[A-F|a-f|0-9]{1,4}[ ]{0,}\\*[ ]{0,}[A-Z|a-z|0-9| ]*[ ]{0,}$");
+        Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}[ ]{1,}\\#\\$[A-F|a-f|0-9]{1,4}"+comentario+"[ ]{0,}$");
         Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}[ ]{1,}\\#\\$[A-F|a-f|0-9]{1,4}[ ]{0,}$");
         Matcher mat_1 = pat_1.matcher(lineaArchivo);
         Matcher mat_2 = pat_2.matcher(lineaArchivo);
@@ -25,9 +39,13 @@ public class ModosDireccionamiento {
         }
     return -1;
     }
+    /*
+        3) Directo (DIR) ---------------- operando de 8 bits
+            LDAA $25
+    */
     public static int devolverDir(String lineaArchivo) {
         Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Z]{1,5}[ ]{1,}[$][A-Z|0-9]{1,2}[ ]{0,}$");
-        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Z]{1,5}[ ]{1,}[$][A-Z|0-9]{1,2}[ ]{0,}\\*.{1,}$");
+        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Z]{1,5}[ ]{1,}[$][A-Z|0-9]{1,2}"+comentario+"$");
         Matcher mat_1 = pat_1.matcher(lineaArchivo);
         Matcher mat_2 = pat_2.matcher(lineaArchivo);
         if(mat_1.matches() || mat_2.matches()){
@@ -35,10 +53,15 @@ public class ModosDireccionamiento {
         }
     return -1; 
     }
+    /*
+        5) Indexado (IND, X) o (IND, Y) - operando de 8 bits, seguido de una ',' y una 'x' o 'y'
+            LDAA $25,X
+            LDY $2C,Y
+    */
     public static int devolverIndX(String lineaArchivo) {
         Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x] {0,}$");
         Matcher mat_1 = pat_1.matcher(lineaArchivo);
-        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x] {0,}\\*.{1,}$");
+        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x]"+comentario+"$");
         Matcher mat_2 = pat_2.matcher(lineaArchivo);
         if(mat_1.matches() || mat_2.matches()) {
             return 3;
@@ -48,16 +71,20 @@ public class ModosDireccionamiento {
     public static int devolverIndY(String lineaArchivo) {
         Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x] {0,}$");
         Matcher mat_1 = pat_1.matcher(lineaArchivo);
-        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x] {0,}\\*.{1,}$");
+        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {1,}\\$[a-f|A-F|0-9]{1,4}\\,[X|x]"+comentario+"$");
         Matcher mat_2 = pat_2.matcher(lineaArchivo);
         if(mat_1.matches() || mat_2.matches()) {
             return 4;
         }
     return -1;
     }
+    /*
+        4) Extendido (EXT) -------------- operando de 16 bits
+            LDAA $257C
+    */
     public static int devolverExt(String lineaArchivo) {
         Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Z]{1,5}[ ]{1,}[$][A-Z|0-9]{1,4}[ ]{0,}$");
-        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Z]{1,5}[ ]{1,}[$][A-Z|0-9]{1,4}[ ]{0,}\\*.{1,}$");
+        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Z]{1,5}[ ]{1,}[$][A-Z|0-9]{1,4}"+comentario+"$");
         Matcher mat_1 = pat_1.matcher(lineaArchivo);
         Matcher mat_2 = pat_2.matcher(lineaArchivo);
         if(mat_1.matches() || mat_2.matches()){
@@ -65,34 +92,14 @@ public class ModosDireccionamiento {
         }
     return -1; 
     }
+    /*
+        Inherente (INH) -------------- carece de signo operando
+            NOP
+    */
     public static int devolverInh(String lineaArchivo) {
-        /*if(lineaFuenteArchivo.matches("^ {1,}"+regex+"$") == true) {
-            System.out.println(i+lineaFuenteArchivo);//LISTO, ya reconoce la expresión shida
-        }
-        //Puede haber espacio(s) que haya escrito por accidente al final
-        if (lineaFuenteArchivo.matches("^ {1,}"+regex+" {1,}$") == true) {
-            System.out.println(i+lineaFuenteArchivo);//LISTO, ya reconoce la expresión no tan shida
-        }
-        //Asterisco pegado a la instrucción
-        //http://tutorials.jenkov.com/java-regex/index.html#escaping-characters
-        if (lineaFuenteArchivo.matches("^ {1,}"+regex+"\\*") == true) {
-            System.out.println(i+lineaFuenteArchivo);//Listo, ya encuentra el * pegado
-        }
-        //Asterisco separado con un(os) espacio(s) a la instrucción
-        if (lineaFuenteArchivo.matches("^ {1,}"+regex+"\\ {1,}\\*") == true) {
-            System.out.println(i+lineaFuenteArchivo);//Listo, ya encuentra el * separado (espacio(s))
-        }
-        //Comentario pegado
-        if (lineaFuenteArchivo.matches("^ {1,}"+regex+"\\*[A-Z|a-z|0-9||\\!|\"|\\#|\\$|\\%|\\&|\\/|\\(|\\)|\\=|\\?|\\¡|\\°|\\¨|\\´|\\+|\\*|\\{|\\[|\\}|\\]|\\,|\\;|\\.|\\:|\\-|\\_|\\ ]{1,}") == true) {
-            System.out.println(i+lineaFuenteArchivo);//LISTO, ya reconoce el comentario pegado y los caracteres especiales
-        }
-        //Comentario con un espacio antes
-        if (lineaFuenteArchivo.matches("^ {1,}"+regex+"\\ {1,}\\*[A-Z|a-z|0-9||\\!|\"|\\#|\\$|\\%|\\&|\\/|\\(|\\)|\\=|\\?|\\¡|\\°|\\¨|\\´|\\+|\\*|\\{|\\[|\\}|\\]|\\,|\\;|\\.|\\:|\\-|\\_|\\ ]{1,}") == true) {
-            System.out.println(i+lineaFuenteArchivo); //LISTO, ya reconoce el espacio
-        }*/
         Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {0,}$");
         Matcher mat_1 = pat_1.matcher(lineaArchivo);
-        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5} {0,}\\*.{1,}$");
+        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Za-z]{1,5}"+comentario+"$");
         Matcher mat_2 = pat_2.matcher(lineaArchivo);
         if(mat_1.matches() || mat_2.matches()) {
             return 6;
@@ -101,7 +108,7 @@ public class ModosDireccionamiento {
     }
     public static int devolverRel(String lineaArchivo) {
         Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Z|a-z]{1,5}[ ]{1,}[A-Z|a-z|0-9]{1,}[ ]{0,}$");
-        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Z|a-z]{1,5}[ ]{1,}[A-Z|a-z|0-9]{1,}[ ]{0,}[*][.]{1,}$");
+        Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Z|a-z]{1,5}[ ]{1,}[A-Z|a-z|0-9]{1,}"+comentario+"$");
         Matcher mat_1 = pat_1.matcher(lineaArchivo);
         Matcher mat_2 = pat_2.matcher(lineaArchivo);
         if(mat_1.matches() || mat_2.matches()){
