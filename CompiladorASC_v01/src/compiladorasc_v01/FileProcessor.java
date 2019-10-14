@@ -78,23 +78,15 @@ public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
 
     }
     
-    //Valida el patrón de los mnemónicos con una regex
-    public static boolean mnemoPattern(String line) {
-        Pattern pat = Pattern.compile("[A-Za-z]{1,5}.*");//Se propone el patrón a buscar en las lineas
-        Matcher mat = pat.matcher(line);//valida que ese patrón esté ne la cadena
-        return mat.matches();//regresa un booleano si la encontró ese patrón
-    }
-    
     //Valida que dentro de el archivo fileMnemos exista el nemónico
     public int processBuffer_containsMnemo(String mnemo, File fileMnemos) throws FileNotFoundException {
         BufferedReader bufferFile_Mnemos = new BufferedReader(new FileReader(fileMnemos));//Se crea una valiable local para el archivo porque sino marcaba error
-        boolean p = false;//bandera
         try {
             String line;
             while ((line = bufferFile_Mnemos.readLine()) != null) {
-                p = FileProcessor.mnemoPattern(mnemo);
-                if (p) {
-                    return 460;
+                String[] aux = line.split("[|]");//Separa la linea cada que encuentra el símbolo "|" y los que está antes y después lo convierte en una posición del arreglo.
+                if(mnemo.equals(aux[0])){
+                    return 406;
                 }
             }
         } catch (IOException ex) {
@@ -132,7 +124,7 @@ public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
         último se refiere al índice del arreglo en que se convierte cada cadena que vamos leyendo del archivo que
         contiene los mnemónicos y sus respectivos opCode's por cada modo de direccionamiento
     */
-    public String processBuffer_opCode(String mnemo, File fileMnemos, int index) throws FileNotFoundException {
+    public String processBuffer_consult(String mnemo, File fileMnemos, int index) throws FileNotFoundException {
         String aux = null;//variable auxiliar
         try {
             String line;
@@ -147,11 +139,6 @@ public class FileProcessor { // THIS CLASS IS GOING TO BE USED AT THE MAIN FUNCT
         }
         return aux;//retorno de variable auxiliar con la palabra de nuestro diccionario de mnemónicos y sus códigos.
     }
-    
-    
-    /*public String processBuffer_Bytes(String mnemo, File fileMnemos) {
-        
-    }*/
     
     //Este puede quedar inutlizado, pero valida se trata de convertir cada linea del archivo a un indice dentro de una lista
     public LinkedList manipularLineapoorLinea(LinkedList l) throws FileNotFoundException {
