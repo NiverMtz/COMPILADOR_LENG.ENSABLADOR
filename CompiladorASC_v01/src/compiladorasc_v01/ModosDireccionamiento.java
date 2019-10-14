@@ -204,10 +204,21 @@ public class ModosDireccionamiento {
         if(mat_1.matches() || mat_2.matches()) {
             return 6;//Todo en orden
         }else if(mat_3.matches() || mat_4.matches()){
-            return 600;// Error: 006. Instrucción no lleva operandos
+            return 606;// Error: 006. Instrucción no lleva operandos
         }
     return -1;//El usuario está pendejo "No sirves para nada"
     }
+    /*
+        Relativo (REL) --------------- operando en su etiqueta
+            LDAA ETIQUETA
+
+            3rr0r
+            NOP         ==> Este ya sería Inherente
+            LDAA #$25   ==> Este ya sería Inmediata
+            LDAA $25    ==> Este ya sería Directo
+            LDAA $25,X  ==> Este ya sería Indexado
+            LDAA $257C  ==> Este ya sería Extendido
+    */
     public static int devolverRel(String lineaArchivo) {
         Pattern pat_1 = Pattern.compile("^[ ]{1,}[A-Z|a-z]{1,5}[ ]{1,}[A-Z|a-z|0-9]{1,}[ ]{0,}$");
         Pattern pat_2 = Pattern.compile("^[ ]{1,}[A-Z|a-z]{1,5}[ ]{1,}[A-Z|a-z|0-9]{1,}"+comentario+"$");

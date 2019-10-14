@@ -11,13 +11,10 @@ import java.util.regex.*;
 /* @author niver */
 
 public class CompiladorASC_v01 {
-
     public static void main(String[] args) {
-
         File file = new File("mnemos_bytes.txt");
         LinkedList lnporln = new LinkedList();
-        int i = 1;
-        
+        //int i = 1; //Variable no utilizada
         try {
             FileProcessor process = new FileProcessor(file);
             /*
@@ -35,7 +32,6 @@ public class CompiladorASC_v01 {
                 opCode (REL)   = 7 
             */
             process.manipularLineapoorLinea(lnporln);
-            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FileProcessor.class.getName()).log(Level.SEVERE, null, ex);
             System.err.print("The file couldn't found");
